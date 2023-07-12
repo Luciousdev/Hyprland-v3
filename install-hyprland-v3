@@ -384,6 +384,36 @@ else
   printf "${NOTE} No themes will be installed..\n"
 fi
 
+#clear screen
+clear
+
+read -n1 -rep "${CAT} OPTIONAL - Would you like to install and configure ohmyzsh? (y/n)" ohmyzsh
+
+if [[ $ohmyzsh =~ ^[Yy]$ ]]; then
+    echo -e "$NOTE - Starting ZSH installation"
+    yay -S zsh
+    echo "$OK - Completed ZSH installation"
+
+    echo -e "$NOTE - Starting ohmyzsh install"
+    zsh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    echo "$OK - Completed ohmyzsh install"
+
+    
+    echo -e "$NOTE - You can find built-in ohmyzsh themes here: https://github.com/ohmyzsh/ohmyzsh/wiki/Themes"
+    echo "$NOTE - Starting ohmyzsh theme configuration"
+    echo -e "$NOTE - Which theme would you like to use?"
+    read new_theme
+
+    echo "$NOTE - Loading default config now"
+    # Update the Zsh configuration file
+    sed -i "s/^ZSH_THEME=.*/ZSH_THEME=\"$new_theme\"/" ~/.zshrc || handle_error
+
+    echo "$OK - Successfully configured ohmyzsh"
+    exec zsh
+else 
+    printf "${NOTE} ohmyzsh will not be installed.\n"
+fi
+
 
 #clear screen
 clear
