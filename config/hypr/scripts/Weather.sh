@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 cachedir=~/.cache/rbn
 cachefile=${0##*/}-$1
 
@@ -29,7 +30,7 @@ weather=($(cat $cachedir/$cachefile))
 # Restore IFSClear
 IFS=$SAVEIFS
 
-temperature=$(echo ${weather[2]} | sed -E 's/([[:digit:]]+)\.\./\1 to /g')
+temperature=$(echo "${weather[2]}" | awk -F '[^0-9.-]+' '{print $2}')
 
 #echo ${weather[1]##*,}
 
@@ -74,6 +75,6 @@ case $(echo ${weather[1]##*,} | tr '[:upper:]' '[:lower:]') in
     ;;
 esac
 
-#echo $temp $condition
+# echo $temperature $condition
 
-echo -e "{\"text\":\""$temperature $condition"\", \"alt\":\""${weather[0]}"\", \"tooltip\":\""${weather[0]}: $temperature ${weather[1]}"\"}"
+echo -e "{\"text\":\""$temperature"°C" $condition"\", \"alt\":\""${weather[0]}"\", \"tooltip\":\""${weather[0]}: $temperature"°C" ${weather[1]}"\"}"
