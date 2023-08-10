@@ -1,5 +1,9 @@
 #!/bin/bash
-# https://github.com/JaKooLit
+# Hyprland Installer Script
+# 
+# This script will install Hyprland on your Arch Linux system.
+#
+# This script is based on the original script by JaKooLit
 
 # Check if running as root. If root, script will exit
 if [[ $EUID -eq 0 ]]; then
@@ -393,6 +397,13 @@ fi
 
 #clear screen
 clear
+
+print "#################################################################"
+print "#                                                               #"
+print "# THIS FUNCTION WORKS BUT REQUIRES YOU TO RESTART THE SCRIPT  . #"
+print "# THIS WILL BE FIXED IN A FUTURE VERSION, PROCEED WITH CAUTION. #"
+print "#                                                               #"
+print "#################################################################"
 
 read -n1 -rep "${CAT} OPTIONAL - Would you like to install and configure ohmyzsh? (y/n)" ohmyzsh
 
